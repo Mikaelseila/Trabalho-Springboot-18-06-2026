@@ -1,0 +1,35 @@
+### Criar uma Nova Conta
+POST http://localhost:8080/contas
+Content-Type: application/json
+
+{
+  "nomeTitular": "Fulano da Silva",
+  "numeroConta": "99999-9",
+  "saldo": 500.0,
+  "ativa": true
+}
+
+### Listar Todas as Contas
+GET http://localhost:8080/contas
+
+### Consultar Conta por ID
+GET http://localhost:8080/contas/2
+
+### Depositar Dinheiro
+PUT http://localhost:8080/contas/1/depositar
+Content-Type: application/json
+
+{
+  "valor": 100.0
+}
+
+### Sacar Dinheiro
+PUT http://localhost:8080/contas/3/sacar
+Content-Type: application/json
+
+{
+  "valor": 50.0
+}
+
+### Alterar Status (Desativar Conta)
+PUT http://localhost:8080/contas/2/status?ativa=false

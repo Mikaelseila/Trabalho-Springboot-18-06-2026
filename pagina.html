@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="http://localhost:8080/produtos/" method="post">
+      <label for="contaId">Digite o ID da conta:</label>
+      <input type="number" name="contaId" id="contaId" />
+      <br />
+      <label for="valor">Digite o valor do saldo:</label>
+      <input type="number" name="valor" id="valor" />
+      <br />
+
+      <input type="button" value="Depositar" onclick="depositar()" />
+      <input type="button" value="Sacar" onclick="sacar()" />
+
+      <input type="button" value="Ativar Conta" onclick="ativar()" />
+      <input type="button" value="Desativar Conta" onclick="desativar()" />
+    </form>
+    <span id="mensagem"></span>
+    <script>
+      //função de depositar dinheiro na conta
+      function depositar() {
+        var id = document.getElementById("contaId").value;
+        var valor = Number(document.getElementById("valor").value);
+        console.log(id);
+        console.log(valor);
+        const p = { valor: valor };
+        const method = "PUT";
+        const url = "http://localhost:8080/contas/" + id + "/depositar";
+
+        fetch(url, {
+          method: method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(p),
+        }).then(() => {
+          document.getElementById("mensagem").innerHTML =
+            "dinheiro depositado.";
+        });
+      }
+
+      //função de sacar dinheiro da conta
+      function sacar() {
+        var id = document.getElementById("contaId").value;
+        var valor = Number(document.getElementById("valor").value);
+        console.log(id);
+        console.log(valor);
+        const p = { valor: valor };
+        const method = "PUT";
+        const url = "http://localhost:8080/contas/" + id + "/sacar";
+
+        fetch(url, {
+          method: method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(p),
+        }).then(() => {
+          document.getElementById("mensagem").innerHTML = "dinheiro sacado.";
+        });
+      }
+
+      //função de ativar as contas
+      function ativar() {
+        var id = document.getElementById("contaId").value;
+        console.log(id);
+        const method = "PUT";
+        const url = "http://localhost:8080/contas/" + id + "/status?ativa=true";
+
+        fetch(url, {
+          method: method,
+        }).then(() => {
+          document.getElementById("mensagem").innerHTML =
+            "conta ativada com sucesso.";
+        });
+      }
+
+      //função de desativar as contas
+      function desativar() {
+        var id = document.getElementById("contaId").value;
+        console.log(id);
+        const method = "PUT";
+        const url =
+          "http://localhost:8080/contas/" + id + "/status?ativa=false";
+
+        fetch(url, {
+          method: method,
+        }).then(() => {
+          document.getElementById("mensagem").innerHTML =
+            "Conta desativada com sucesso.";
+        });
+      }
+    </script>
+  </body>
+</html>
